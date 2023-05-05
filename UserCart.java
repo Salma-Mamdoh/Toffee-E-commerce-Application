@@ -170,10 +170,10 @@ public class UserCart {
       e.printStackTrace();
     }    
  }
-    public void ShowCartitems(String Email){
+    public static Vector<String> ShowCartitems(String Email){
         String path="cart.txt";
         File file =new File(path);
-        
+        Vector<String>vec=new Vector<String>();
         PrintWriter out = null;
         try{
             System.out.println("Email        "+"\t\t\t"+"ProductID"+"\t"+"ProductQuantity"+"\t"+"ProductName"+"\t\t"+"Productprice"+"\t\t");
@@ -183,7 +183,9 @@ public class UserCart {
                 String[] values=line.split("\t\t");
                 if(values[0].equals(Email)){
                    System.out.println(line); 
+                   vec.add(line);
                 }
+               
             }
         } catch(IOException e) {
         System.err.println(e);
@@ -192,7 +194,8 @@ public class UserCart {
             out.close();
         }
         }
-        
+        //for(int i=0 ; i<vec.size(); i++)System.out.println(vec.get(i));
+        return vec;
     }
     public double gettotalprice(String Email){
         String path="cart.txt";
@@ -205,7 +208,7 @@ public class UserCart {
                 String line=inputBuffer.nextLine();
                 String[] values=line.split("\t\t");
                 if(values[0].equals(Email)){
-                   price+=Double.valueOf(values[4]); 
+                   price+=(Double.valueOf(values[4])*Double.valueOf(values[2])); 
                 }
             }
         } catch(IOException e) {
