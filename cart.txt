@@ -1,2 +1,7 @@
-smmdwh985@gmail.com		TO2		5
-smmdwh985@gmail.com		TO3		10
+smmdwh985@gmail.com		TO3		28		Walkers Nonsuch			4
+smmdwh985@gmail.com		TO3		50		Walkers Nonsuch			4
+smmdwh985@gmail.com		CH3		60		White chocolate			150
+smmdwh985@gmail.com		TO2		15		Brown & Haley			12
+smmdwh985@gmail.com		CH4		11		Ruby chocolate			700
+smmdwh985@gmail.com		CH1		3		Milk chocolate 			100
+smmdwh985@gmail.com		CH3		9		White chocolate			150
