@@ -3,8 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.toffee.EnterUser;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +19,7 @@ import java.io.PrintWriter;
  * @author smmdw
  */
 public class SignUp {
+    Scanner sc= new Scanner(System.in); 
     private String name ;
     private String address;
     private String phonenum;
@@ -81,7 +86,6 @@ public class SignUp {
         OTP obj=new OTP();
         obj.GenerateOTP();
         obj.SendOTPUsingEmail(Email);
-        Scanner sc= new Scanner(System.in); 
         String inputcode=sc.nextLine();
         while(!obj.CkeckOTP(inputcode)){
             System.out.print("this invalid OTP code WE will send another Otp to you");
@@ -92,7 +96,6 @@ public class SignUp {
         return true;
     }
     public void EnterUserData(){
-        Scanner sc= new Scanner(System.in); 
         System.out.print("Please Enter Your Email: ");
         Email=sc.nextLine();
         while(!CheckInputValidation(1)){
@@ -149,4 +152,127 @@ public class SignUp {
 }
 
 }
+     public String Remove(String Email){
+        String path="SaveData.txt";
+        File file =new File(path);
+        File templete=new File("Templete2.txt");
+        PrintWriter out = null;
+        boolean exist=false;
+        String returnStr="";
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(file));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(templete));
+            Scanner inputBuffer=new Scanner (file);
+            String linetoremove="";
+            String currentLine;
+            while(inputBuffer.hasNext()){
+                String line=inputBuffer.nextLine();
+                String[] values=line.split("\t\t");
+                if(values[0].equals(Email)){
+                        linetoremove=line;
+                        //exist=true;
+                        returnStr=line;
+                        break;
+                }
+            }
+            //System.out.print(linetoremove);
+            if(!linetoremove.isEmpty()){
+            while((currentLine = reader.readLine()) != null) {
+   
+                String trimmedLine = currentLine.trim();
+                if(trimmedLine.equals(linetoremove)) continue;
+                writer.write(currentLine + System.getProperty("line.separator"));
+            }
+            writer.close(); 
+            reader.close(); 
+             FileInputStream in = new FileInputStream(templete);
+             FileOutputStream output = new FileOutputStream(file);
+             int n;
+            while ((n = in.read()) != -1) {
+                output.write(n);
+            }
+            }
+            else{
+                System.out.println("This no person has this Email");
+            }
+            
+        } catch(IOException e) {
+        System.err.println(e);
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        }
+        return returnStr;
+    }
+    public void updateAddress(String Email){
+        System.out.println("Enter the new address");
+        String newAdd=sc.nextLine();
+        address=newAdd;
+        PrintWriter out = null;
+        String Data=Remove(Email);
+        String[] val=Data.split("\t\t");
+    try {
+        out = new PrintWriter(new BufferedWriter(new FileWriter("SaveData.txt", true)));
+        out.println(val[0]+"\t\t"+val[1]+"\t\t"+val[2]+"\t\t"+val[3]+"\t\t"+newAdd);
+    } catch (IOException e) {
+        System.err.println(e);
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+    }
+    }
+    public void updatePhonenumber(String Email){
+        System.out.println("Enter the new phonenumber");
+        String newphonenum=sc.nextLine();
+        phonenum=newphonenum;
+        PrintWriter out = null;
+        String Data=Remove(Email);
+        String[] val=Data.split("\t\t");
+    try {
+        out = new PrintWriter(new BufferedWriter(new FileWriter("SaveData.txt", true)));
+        out.println(val[0]+"\t\t"+val[1]+"\t\t"+val[2]+"\t\t"+newphonenum+"\t\t"+val[4]);
+    } catch (IOException e) {
+        System.err.println(e);
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+    }
+    }
+    public String getline(String Email){
+         String path="SaveData.txt";
+        File file =new File(path);
+        String toreturn="";
+        PrintWriter out = null;
+        try{
+            Scanner inputBuffer=new Scanner (file);
+            while(inputBuffer.hasNext()){
+                String line=inputBuffer.nextLine();
+                String[] values=line.split("\t\t");
+                if(values[0].equals(Email)){
+                    toreturn=line;
+                    break;
+                }
+            }
+        } catch(IOException e) {
+        System.err.println(e);
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        }
+        if(toreturn.isEmpty()){
+            System.out.println("this no item by this id ");
+            return "";
+        }
+        else return toreturn;
+}
+    public void displaypersonalinfo(String Email){
+        String line=getline(Email);
+        String[] values=line.split("\t\t");
+        System.out.println("this the personal information");
+        System.out.print("Email: "+values[0]+"\n"+"Phonnum: "+values[3]+"\n" + "Name: "+values[2]+"\n" +"Address: "+values[4]+"\n");
+    }
 }
