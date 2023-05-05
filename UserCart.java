@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.toffee.Cart;
-
+//import com.mycompany.toffee.Order.ConfirmOrder;
+import com.mycompany.toffee.products.CatalogOfItems;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -21,6 +22,7 @@ import java.util.*;
  */
 public class UserCart {
     Scanner ss=new Scanner(System.in);
+    CatalogOfItems ct=new CatalogOfItems();
     private String useremail;
     public void DisplayMenu(){
         System.out.println("if you want to add item to the Cart             --------->Enter 1");
@@ -29,25 +31,30 @@ public class UserCart {
         System.out.println("if you want to increase the Quantity of sepcific item ----->Enter 4");
         System.out.println("if you want to decrease the Quantity of sepcific item ----->Enter 5");
         System.out.println("if you want to return to Categories                   ----->Enter 6");
+        System.out.println("if you want to make order                             ------>Enter 7");
+        System.out.println("if you want to close programm                         ------>Enter 8");
 
     }
     public void setEmail(String Email){
         useremail=Email;
     }
     public void Additem(){
+        PrintWriter myWriter = null;
         try {
-      FileWriter myWriter = new FileWriter("cart.txt");
+            myWriter = new PrintWriter(new BufferedWriter(new FileWriter("cart.txt", true)));
       System.out.println("Start adding item to Cart and if you want to stop adding to Cart enter 0");
            String str="";
            String str2="";
        while(!str2.equals("0")){
            System.out.println("Enter the id of items that you want to add to cart");
            str2=ss.nextLine();
+           String line=ct.getline(str2);
+           String[] values=line.split("\t\t");
            if(str2.equals("0"))break;
            System.out.println("Enter the quantity that you want from this item ");
            str=ss.nextLine();
-           String addtofile=useremail+"\t\t"+str2+"\t\t"+str;
-           myWriter.append(addtofile+"\n");
+           String addtofile=useremail+"\t\t"+str2+"\t\t"+str+"\t\t"+values[1]+"\t\t"+values[2];
+           myWriter.print(addtofile+"\n");
        }
       myWriter.close();
       //System.out.println("Successfully wrote to the file.");
@@ -115,16 +122,19 @@ public class UserCart {
         Remove(item);
     }
     public void increaseQuanofItem(){
+         PrintWriter myWriter = null;
         System.out.println("Enter the ID of item that you want to increase its quantity ");
         String itemname=ss.nextLine();
         String OldQua=Remove(itemname);
         System.out.println("Enter the amount that you want to increase to this item ");
         int  increaseQua=ss.nextInt();
         try {
-            FileWriter myWriter = new FileWriter("cart.txt");
+            myWriter = new PrintWriter(new BufferedWriter(new FileWriter("cart.txt", true)));
             int z=increaseQua+Integer.parseInt(OldQua);
-           String addtofile=useremail+"\t\t"+itemname+"\t\t"+z;
-           myWriter .write(addtofile+"\n");
+            String line=ct.getline(itemname);
+            String[] values=line.split("\t\t");
+            String addtofile=useremail+"\t\t"+itemname+"\t\t"+z+"\t\t"+values[1]+"\t\t"+values[2];
+           myWriter.print(addtofile+"\n");
            myWriter.close();
       //System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
@@ -133,21 +143,25 @@ public class UserCart {
     }    
   }
     public void decreaseQuanofItem(){
+        PrintWriter myWriter = null;
         System.out.println("Enter the ID of item that you want to decrease its quantity ");
         String itemname=ss.nextLine();
         String OldQua=Remove(itemname);
         System.out.println("Enter the amount that you want to decrease to this item ");
         int  decreaseQua=ss.nextInt();
         try {
-            FileWriter myWriter = new FileWriter("cart.txt");
+            myWriter = new PrintWriter(new BufferedWriter(new FileWriter("cart.txt", true)));
             if(Integer.parseInt(OldQua)<decreaseQua){
                 System.out.println("This decrese quantity is greater than the quantity of this item which exist in the Cart");
                 System.out.println("item will be removed from the cart");
             }
             else{
-            int z=decreaseQua-Integer.parseInt(OldQua);
-            String addtofile=useremail+"\t\t"+itemname+"\t\t"+z;
-            myWriter .write(addtofile+"\n");
+                //System.out.print("here");
+            int z=Integer.parseInt(OldQua)-decreaseQua;
+            String line=ct.getline(itemname);
+            String[] values=line.split("\t\t");
+            String addtofile=useremail+"\t\t"+itemname+"\t\t"+z+"\t\t"+values[1]+"\t\t"+values[2];
+            myWriter.print(addtofile+"\n");
             myWriter.close();
             }
       //System.out.println("Successfully wrote to the file.");
@@ -162,12 +176,13 @@ public class UserCart {
         
         PrintWriter out = null;
         try{
+            System.out.println("Email        "+"\t\t\t"+"ProductID"+"\t"+"ProductQuantity"+"\t"+"ProductName"+"\t\t"+"Productprice"+"\t\t");
             Scanner inputBuffer=new Scanner (file);
             while(inputBuffer.hasNext()){
                 String line=inputBuffer.nextLine();
                 String[] values=line.split("\t\t");
                 if(values[0].equals(Email)){
-                   System.out.println(values[1]); 
+                   System.out.println(line); 
                 }
             }
         } catch(IOException e) {
@@ -179,7 +194,31 @@ public class UserCart {
         }
         
     }
-    public void Makeorder(){
+    public double gettotalprice(String Email){
+        String path="cart.txt";
+        File file =new File(path);
+        double price=0.0;
+        PrintWriter out = null;
+        try{
+            Scanner inputBuffer=new Scanner (file);
+            while(inputBuffer.hasNext()){
+                String line=inputBuffer.nextLine();
+                String[] values=line.split("\t\t");
+                if(values[0].equals(Email)){
+                   price+=Double.valueOf(values[4]); 
+                }
+            }
+        } catch(IOException e) {
+        System.err.println(e);
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        }
+        return price;
         
+    }
+    public void Makeorder(){
+        // will call control function in toffee App;
     }
 }
