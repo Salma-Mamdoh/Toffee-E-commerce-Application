@@ -132,5 +132,32 @@ public class CatalogOfItems {
              System.out.print("Invalid input\n");
          }
     }
-    
+    public String getline(String id){
+         String path="products.txt";
+        File file =new File(path);
+        String toreturn="";
+        PrintWriter out = null;
+        try{
+            Scanner inputBuffer=new Scanner (file);
+            while(inputBuffer.hasNext()){
+                String line=inputBuffer.nextLine();
+                String[] values=line.split("\t\t");
+                if(values[0].equals(id)){
+                    toreturn=line;
+                    break;
+                }
+            }
+        } catch(IOException e) {
+        System.err.println(e);
+    } finally {
+        if (out != null) {
+            out.close();
+        }
+        }
+        if(toreturn.isEmpty()){
+            System.out.println("this no item by this id ");
+            return "";
+        }
+        else return toreturn;
+}
 }
