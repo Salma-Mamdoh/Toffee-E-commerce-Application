@@ -10,15 +10,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 /**
- *
- * @author smmdw
+ * this class designed to implement the login function.
+ * @author Jana Rafat
  */
 public class Login {
     private String Email;
     private String Password;
+    
+    /**
+     * this method returns the email of specific user . 
+     * @return string 
+     */
     public String getEmail(){
         return this.Email;
     }
+    /**
+     * this method is used to enter the user data (Ex: email , password) . 
+     */
     public void EnterData(){
         Scanner sc= new Scanner(System.in);
         System.out.print("Enter Your Email : ");
@@ -26,6 +34,10 @@ public class Login {
         System.out.print("Enter Your Password : ");
         Password=sc.nextLine();
     }
+    /**
+     * this method checks for the correctness of the data entered by the user to login to the program . 
+     * @return Boolean 
+     */
     public boolean Check(){
         String path="SaveData.txt";
         File file =new File(path);
