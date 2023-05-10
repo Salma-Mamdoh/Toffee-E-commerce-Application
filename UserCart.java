@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.toffee.Cart;
-//import com.mycompany.toffee.Order.ConfirmOrder;
 import com.mycompany.toffee.products.CatalogOfItems;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -15,15 +14,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
-
 /**
- *
- * @author smmdw
+ * this class designed to implement the user cart class.
+ * @author Jana Rafat
  */
 public class UserCart {
     Scanner ss=new Scanner(System.in);
     CatalogOfItems ct=new CatalogOfItems();
     private String useremail;
+    /**
+     * this method displays the menu which the user choose from to deal with cart . 
+     */
     public void DisplayMenu(){
         System.out.println("if you want to add item to the Cart             --------->Enter 1");
         System.out.println("if you want to remove item from the Cart        --------->Enter 2");
@@ -35,9 +36,16 @@ public class UserCart {
         System.out.println("if you want to close programm                         ------>Enter 8");
 
     }
+    /**
+     * this method set the email of the user. 
+     * @param Email 
+     */
     public void setEmail(String Email){
         useremail=Email;
     }
+   /**
+     * this method add item to the cart. 
+     */
     public void Additem(){
         PrintWriter myWriter = null;
         try {
@@ -63,6 +71,11 @@ public class UserCart {
       e.printStackTrace();
     } 
   }
+    /**
+     * this method remove item from the cart into database. 
+     * @param item
+     * @return string 
+     */
     public String Remove(String item){
         String path="cart.txt";
         File file =new File(path);
@@ -86,7 +99,6 @@ public class UserCart {
                         break;
                 }
             }
-            //System.out.print(linetoremove);
             if(!linetoremove.isEmpty()){
             while((currentLine = reader.readLine()) != null) {
    
@@ -116,11 +128,17 @@ public class UserCart {
         }
         return returnStr;
     }
+    /**
+     * this method remove item from the cart . 
+     */
     public void Removeitem(){
         System.out.println("Enter the ID of item you want to remove ");
         String item=ss.nextLine();
         Remove(item);
     }
+    /**
+     * this method used to increase the amount of an item in the cart. 
+     */
     public void increaseQuanofItem(){
          PrintWriter myWriter = null;
         System.out.println("Enter the ID of item that you want to increase its quantity ");
@@ -142,6 +160,9 @@ public class UserCart {
       e.printStackTrace();
     }    
   }
+    /**
+     * this method used to decrease the amount of a specific item in the cart. 
+     */
     public void decreaseQuanofItem(){
         PrintWriter myWriter = null;
         System.out.println("Enter the ID of item that you want to decrease its quantity ");
@@ -170,6 +191,11 @@ public class UserCart {
       e.printStackTrace();
     }    
  }
+    /**
+     * this method used to show the items added to the cart before. 
+     * @param Email
+     * @return nothing 
+     */
     public static Vector<String> ShowCartitems(String Email){
         String path="cart.txt";
         File file =new File(path);
@@ -194,9 +220,13 @@ public class UserCart {
             out.close();
         }
         }
-        //for(int i=0 ; i<vec.size(); i++)System.out.println(vec.get(i));
         return vec;
     }
+    /**
+     * this method used to get the total price of the order. 
+     * @param Email
+     * @return nothing 
+     */
     public double gettotalprice(String Email){
         String path="cart.txt";
         File file =new File(path);
@@ -221,6 +251,9 @@ public class UserCart {
         return price;
         
     }
+    /**
+     * this method has no implementation yet according to the doctor’s instructions. 
+     */
     public void Makeorder(){
         // will call control function in toffee App;
     }
