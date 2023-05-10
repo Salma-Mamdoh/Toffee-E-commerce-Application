@@ -55,7 +55,7 @@ public class SignUp {
                 return true;
             }
             else{
-                System.out.println("Address should be in this format street number & street namr & city name");
+                System.out.println("Address should be in this format street number & street name & city name");
                 return false;
             }
         }
@@ -149,10 +149,10 @@ public class SignUp {
             name=sc.nextLine();
         }
         //System.out.print(name);
-        System.out.print("Please Enter Your Address: ");
+        System.out.print("Please Enter Your Address as 25 haram giza: ");
         address=sc.nextLine();
         while(!CheckInputValidation(3)){
-            System.out.println("This Invalid Address Please Enter a valid Address");
+            System.out.println("This Invalid Address Please Enter a valid Address street number & street name & city name");
             address=sc.nextLine();
         }
         //System.out.print(address);
