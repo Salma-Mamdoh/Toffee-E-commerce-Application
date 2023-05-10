@@ -13,10 +13,9 @@ import java.util.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-
 /**
- *
- * @author smmdw
+ * this class designed to implement the SignUp function.
+ * @author Jana Rafat
  */
 public class SignUp {
     Scanner sc= new Scanner(System.in); 
@@ -25,6 +24,11 @@ public class SignUp {
     private String phonenum;
     private String Pass;
     private String Email;
+    /**
+     * this method checks the user info if it is validated or not. 
+     * @param inputnum which is the number chosen to do the sub functions of the method.
+     * @return Boolean 
+     */
     public boolean CheckInputValidation(int inputnum){
         if(inputnum==1){
             if(Email.matches("[A-Za-z0-9_#!%$‘&+*–/=?^`.{|}~-]*(.)[A-za-z0-9_#!%$‘&+*–/=?^`.{|}~-]*@[A-za-z0-9-+/]*.(com)")){
@@ -68,6 +72,10 @@ public class SignUp {
             return false;
         }
     }
+    /**
+     * this method checks the user password as it has the static roles of the password or not. 
+     * @return Boolean 
+     */
     public boolean CheckPassRules(){
             if(Pass.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d@$!%*?&]{8}$")){
                 return true;
@@ -82,19 +90,50 @@ public class SignUp {
                 return false;
             }
     }
+     /**
+     * this method provides OTP validation. 
+     * @return Boolean 
+     */
     public boolean OTPValidation(){
-        OTP obj=new OTP();
-        obj.GenerateOTP();
-        obj.SendOTPUsingEmail(Email);
-        String inputcode=sc.nextLine();
-        while(!obj.CkeckOTP(inputcode)){
-            System.out.print("this invalid OTP code WE will send another Otp to you");
-            obj.GenerateOTP();
-            obj.SendOTPUsingEmail(Email);
-            inputcode=sc.nextLine();
+        OTP gEmailSender = new OTP();
+        String otp =gEmailSender.GenerateOTPCode();
+        gEmailSender.OTPcode=otp;
+        String verifyOtp="";
+        String to = Email;
+        String from = "janaraafat002@gmail.com";
+        String subject = "Welcome to toffe Store !"
+                + "This is your way to confirm your email address";
+        String text = "Dear jana,"
+                + "we are here to help you with your registeration progress ♥ ... to confirm your account , please use the following OTP to verify your account : "+otp+"\n"
+                + "Thank you for your time we wish you a good tour in our store ,having your favouite chocolate pieces yummmi! 😋"+"\n"+"regards,"+"\n"
+                + "Toffee Store Team";
+        boolean b = gEmailSender.sendEmail(to, from, subject, text);
+        if (b) {  
+            System.out.println("Email is sent successfully");
+            System.out.println("Please , put the code sent to you : ");
+            verifyOtp =sc.nextLine();
+            if(gEmailSender.CkeckOTP(verifyOtp))
+            return true; 
+            else{
+                while(!gEmailSender.CkeckOTP(verifyOtp)){
+                                 b = gEmailSender.sendEmail(to, from, subject, text);
+                                 if (b) {  
+                                            System.out.println("Email is sent successfully");
+                                            System.out.println("Please , put the code sent to you : ");
+                                            verifyOtp =sc.nextLine();
+                                 }else {
+                                 System.out.println("There is problem in sending email");}
+                }
+                }
+
+        } else {
+            System.out.println("There is problem in sending email");
         }
-        return true;
+            return false;
     }
+    /**
+     * this method is used to permits the user to enter his/her data. 
+     */
     public void EnterUserData(){
         System.out.print("Please Enter Your Email: ");
         Email=sc.nextLine();
@@ -137,6 +176,9 @@ public class SignUp {
         }
         //System.out.print(Pass);
     }
+    /**
+     * this method is used to add the user to the database. 
+     */
     public void AddUserToDB(){
        
         PrintWriter out = null;
@@ -152,6 +194,11 @@ public class SignUp {
 }
 
 }
+    /**
+     * this method is used to remove this user at all. 
+     * @param Email takes the email as it is the key to search about in the database.
+     * @return string 
+     */
      public String Remove(String Email){
         String path="SaveData.txt";
         File file =new File(path);
@@ -175,7 +222,6 @@ public class SignUp {
                         break;
                 }
             }
-            //System.out.print(linetoremove);
             if(!linetoremove.isEmpty()){
             while((currentLine = reader.readLine()) != null) {
    
@@ -205,6 +251,10 @@ public class SignUp {
         }
         return returnStr;
     }
+     /**
+     * this method used to update the address in the database. 
+     * @param Email takes the email as it is the key to search about in the database. 
+     */
     public void updateAddress(String Email){
         System.out.println("Enter the new address");
         String newAdd=sc.nextLine();
@@ -223,6 +273,10 @@ public class SignUp {
         }
     }
     }
+     /**
+     * this method used to update the phone number in the database. 
+     * @param Email takes the email as it is the key to search about in the database. 
+     */
     public void updatePhonenumber(String Email){
         System.out.println("Enter the new phonenumber");
         String newphonenum=sc.nextLine();
@@ -241,6 +295,11 @@ public class SignUp {
         }
     }
     }
+     /**
+     * this method used to get a complete line in the data base. 
+     * @param Email takes the email as it is the key to search about in the database.
+     * @return string 
+     */
     public String getline(String Email){
          String path="SaveData.txt";
         File file =new File(path);
@@ -269,6 +328,10 @@ public class SignUp {
         }
         else return toreturn;
 }
+    /**
+     * this method display person info. 
+     * @param Email takes the email as it is the key to search about in the database. 
+     */
     public void displaypersonalinfo(String Email){
         String line=getline(Email);
         String[] values=line.split("\t\t");
