@@ -3,18 +3,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.toffee.products;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
-
 /**
- *
- * @author smmdw
+ * this class is implemented to do the functions of the catalog.
+ * @author Jana Rafat
  */
 public class CatalogOfItems {
     private int ch;
+    /**
+     * this method is show all the user products. 
+     */
     public void Showallproducts(){
         String path="products.txt";
         File file =new File(path);
@@ -35,16 +34,25 @@ public class CatalogOfItems {
         }
         }
     }
+    /**
+     * this method is used to display a specific category. 
+     */
     public void displayCategoryMenu(){
         System.out.println("Enter the number of the Catergory you want: ");
         System.out.println("For Choclate ---------> Enter 1: ");
         System.out.println("For Toffee   ---------> Enter 2: ");
         System.out.println("For Cady     ---------> Enter 3: ");
     }
+    /**
+     * this method is used to get a specific category type. 
+     */
     public void getCategoryType(){
         Scanner sc= new Scanner(System.in);
          ch=sc.nextInt();
     }
+    /**
+     * this method is used to show the products of specific category. 
+     */
     public void ShowCategoryProducts(){
         if(ch==1){
              String path="products.txt";
@@ -132,6 +140,11 @@ public class CatalogOfItems {
              System.out.print("Invalid input\n");
          }
     }
+    /**
+     * this method used to get a complete line in the data base. 
+     * @param id takes the id as it is the primary key to search about in the database.
+     * @return string 
+     */
     public String getline(String id){
          String path="products.txt";
         File file =new File(path);
