@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 </head>
 <body>
-	<h1>Toffee E-commerce Website</h1>
+	<h1>Toffee E-commerce Application</h1>
 	<p>This project is an e-commerce website for Toffee, a business that sells sweets like candy, chocolate, toffee, and others. The website provides a catalog of goods that customers can order, and allows them to pay upon delivery or via payment methods like smart wallets. The site also offers gift vouchers, and allows users to view their order history and earn loyalty points when making an order.</p>
 	<p>The initial requirements for the project were provided by the client, and were refined through interviews, questions, and other means to ensure full understanding of what the client wants</p>
 
