@@ -1,0 +1,24 @@
+ProductID	productName				productPrice	productDescription
+CH1		Milk chocolate 			100			contains at least 12% milk and must contain a minimum of 10% chocolate liquor.
+CH2		Dark chocolate			200			contains at least 35 percent cocoa solids and most bittersweet bars contain at least 50 percent chocolate liquor.
+CH3		White chocolate			150			made from cocoa butter, sugar, and milk solids and has a softer texture than milk chocolate.
+CH4		Ruby chocolate			700			made from ruby cocoa beans and has a fruity flavor with a hint of sourness.
+CH5		Bittersweet chocolate		500			contains less sugar than semi-sweet chocolate and has greater cacao content, at least 50% of cacao.					 
+CH6		Semi-sweet chocolate		160			contains 35% of cacao powder. 
+CH7		Compound chocolate		140			made from a mixture of cocoa, vegetable fats, and sweeteners. 
+CH8		Couverture chocolate		50			high-quality chocolate that contains a higher percentage of cocoa butter than regular chocolate.
+CH9		Chocolate With nuts		30			Made from choclate mixed with nuts.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TO1		Almond 				15			Almond Roca Buttercrunch Toffee with Almonds - 10 oz by Almond Roca.
+TO2		Brown & Haley			12			Brown & Haley Almond Roca 10oz.
+TO3		Walkers Nonsuch			4			Walkers Nonsuch Liquorice Toffee 150g Bag x2. 		
+TO4		Bonfire toffee			8			a hard, brittle toffee made with dark brown sugar and black treacle. 
+TO5		Butterscotch			3			a type of toffee made with brown sugar and butter.
+TO6		The Caramel Toffee		6			a soft, chewy toffee made with white sugar and butter.
+TO7		Dulce de leche			3			a creamy caramel-like toffee made by slowly heating sweetened milk until it thickens and caramelizes.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CA1		Jolly Rancher			50			A hard candy of sour/sweet or tangy taste.		
+CA2		M&M’s 				60			A chocolate candy that comes in a variety of flavors.
+CA3		Sour Patch Kids			5			A sour fruit-flavored chewy candy.
+CA4		Swedish Fish 			6			A chewy fish-shaped candy that comes in a variety of flavors.
+CA5		Nerds 				16			A small, crunchy candy that comes in a variety of flavors.
